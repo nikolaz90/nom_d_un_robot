@@ -1,19 +1,30 @@
 class Robot
   attr_reader :name
+
+  @@used_name_index = 0
+  @@all_names = ("AA000".."ZZ999").to_a.shuffle
+
   def initialize
-    @name = random_name
+    @name = get_name
+    next_index
   end
 
   def self.forget
-
-  end
-
-  def random_name
-    ("AA000".."ZZ999").to_a.sample
-    # shuffle
+   @@used_name_index = 0
   end
 
   def reset
-    @name = random_name
+    next_index
+    @name = get_name
+  end
+
+  private
+
+  def next_index
+    @@used_name_index += 1
+  end
+
+  def get_name
+    @@all_names[@@used_name_index]
   end
 end
